@@ -1,0 +1,20 @@
+
+.options{
+    padding: 10px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #474F7A;
+}
+
+.options > button {
+    padding: 10px;
+    color: white;
+    background-color: inherit;
+    border: 0.5px solid #474F7A;
+    border-radius: 5px;
+}
+
+.options > button:hover{
+    background-color: #1F2544;
+}
