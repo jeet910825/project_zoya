@@ -4,15 +4,18 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #474F7A;
+    flex-direction: column;
 }
 
 .options > button {
     padding: 10px;
     color: white;
-    background-color: inherit;
+    background-color: #474F7A;
     border: 0.5px solid #474F7A;
     border-radius: 5px;
+    width: 100%;
+    max-width: 200px;
+    
 }
 
 .options > button:hover{
