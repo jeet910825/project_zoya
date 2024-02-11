@@ -1,76 +1,67 @@
-import React from 'react'
+
+import React , {useState} from "react";
+import { Button, Form } from "react-bootstrap";
+import api from "../../../api/api";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const [employeeId, setEmployeeId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmployeeIdChange = (event) => {
+    setEmployeeId(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try{
+      const response = await api.post("api/login",{e_id:employeeId,e_password:password})
+      
+      if(response?.status === 200){
+        navigate("/employee")
+      }
+    }catch (err){
+      console.log(err)
+    }
+    // Your login logic here
+  };
+
+  // Disable the button if either field is empty
+  const isDisabled = !employeeId || !password;
+
   return (
-    <div>
-       <div className=" form-container">
-      <Form className="form" onSubmit={formHandlefunc}>
-        <h3 className="text-center mt-4 mb-5">Login</h3>
+    <div className="form-container">
+      <Form className="form" onSubmit={handleLogin}>
         <Form.Group className="mb-3">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Employee id</Form.Label>
           <Form.Control
-            value={employee.e_name}
-            onChange={(e) =>
-              setEmployee((pre) => {
-                return { ...pre, e_name: e.target.value };
-              })
-            }
-            placeholder="Employee Name"
-            autoComplete="off"
+            placeholder="E_ID"
+            value={employeeId}
+            onChange={handleEmployeeIdChange}
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>MSI ID</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
-            value={employee.msi_id}
-            onChange={(e) =>
-              setEmployee((pre) => {
-                return { ...pre, e_msi_id: e.target.value };
-              })
-            }
-            placeholder="MSI ID"
-            autoComplete="off"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Mobile number</Form.Label>
-          <Form.Control
-            value={employee.e_number}
-            onChange={(e) =>
-              setEmployee((pre) => {
-                return { ...pre, e_number: e.target.value };
-              })
-            }
-            placeholder="+91"
-            autoComplete="off"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Passport number</Form.Label>
-          <Form.Control
-            value={employee.e_passport}
-            onChange={(e) =>
-              setEmployee((pre) => {
-                return { ...pre, e_passport: e.target.value };
-              })
-            }
-            placeholder="Passport number"
-            autoComplete="off"
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={handlePasswordChange}
           />
         </Form.Group>
         <div className="submit-button">
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-          <Button variant="danger" onClick={() => navigate("/")}>
-            Cancel
+          <Button className="primary" type="submit" disabled={isDisabled}>
+            Login
           </Button>
         </div>
-        {err === "" ? "": <p className="err">{err} </p>}
       </Form>
     </div>
-    </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

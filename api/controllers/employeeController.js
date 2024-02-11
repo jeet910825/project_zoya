@@ -4,8 +4,7 @@ const Employee = require("../models/employeeModel");
 const jwt = require('jsonwebtoken')
 
 exports.login = async (req, res) => {
-  const { e_id, password } = req.body;
-  
+  const { e_id, e_password:password } = req.body;
   try {
     const employee = await Employee.findByID(e_id);
     if (!employee) {

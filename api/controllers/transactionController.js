@@ -5,6 +5,10 @@ const Transactions = require("../models/transactionModel")
 exports.transactionCredit = async (req, res, next) => {
   try {
     const {e_id,t_date,t_amount:amount} = req.body;
+    const employeeDetails = await Employee.findByID(e_id);
+    if(!employeeDetails){
+      return res.status(401).json({message:"employee does not exist"});
+    }
     const balance = await Employee.addBalance(e_id,amount);
     const credit = await Transactions.credit({
       e_id,
@@ -26,7 +30,10 @@ exports.transactionDebit = async (req,res,next) =>{
     
     
     const employeeDetails = await Employee.findByID(e_id);
-    if(employeeDetails.balance < amount){
+    if(!employeeDetails){
+      return res.status(401).json({message:"employee does not exist"});
+    }
+    if(employeeDetails?.balance < amount){
       return res.status(401).json({message:"insufficient balance"});
     }
     const balance = await Employee.removeBalance(e_id,amount);
@@ -42,6 +49,12 @@ exports.transactionDebit = async (req,res,next) =>{
     console.error('Error during login:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
+}
+
+exports.getAllTransaction = async(req,res,next) =>{
+
+  const {start_date,end_date} = req.body
+  
 }
 
 

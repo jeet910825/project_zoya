@@ -12,6 +12,7 @@ function TrasactionDetails() {
     t_amount: "",
     t_description: "",
   });
+
   const handleSubmitForm = async(e) => {
     e.preventDefault();
     if (
@@ -22,18 +23,19 @@ function TrasactionDetails() {
       setErr("please enter all fields")
     } else {
       setErr("");
-      console.log(url);
+
        await api.post("api/"+url,transaction)
       .then(res=>{
         if(res.status === 200){
-          setErr(res.data.message);
+          setErr(res?.data?.message);
         }
       })
       .catch(err=>{
-        setErr(err.response.data.message);
+        setErr(err?.response?.data?.message);
       })
     }
   };
+
   return (
     <div className="form-container">
       <Form className="form" onSubmit={handleSubmitForm}>

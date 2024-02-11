@@ -25,7 +25,7 @@ function EmployeeRegistration() {
       employee.e_number.trim() === "" ||
       employee.e_passport.trim() === "" ||
       employee.e_msi_id.trim() === "" ||
-      employee.e_passport.trim() === ""
+      employee.e_password.trim() === ""
     ) {
       setErr("please enter all fields")
     } else {
@@ -110,7 +110,7 @@ function EmployeeRegistration() {
               })
             }
             type="password"
-            placeholder="Passport number"
+            placeholder="password"
             autoComplete="off"
           />
         </Form.Group>

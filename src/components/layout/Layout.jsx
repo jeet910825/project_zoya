@@ -8,10 +8,12 @@ function Layout() {
   return (
     <>
       <div className="options">
+        
         <button onClick={()=>(navigate('/register'))}>Add employee</button>
         <button onClick={()=>(navigate('/transaction-details'))}>Add transaction</button>
         <button>Report</button>
         <button>Statement</button>
+        <button onClick={()=>(navigate("/login"))}>Login</button>
       </div>
       <Outlet />
     </>
